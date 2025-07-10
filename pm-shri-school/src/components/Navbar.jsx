@@ -11,7 +11,7 @@ const Navbar = () => {
         {/* Logo */}
         <Link to="/" className="flex items-center space-x-2">
           <img src="/logo.jpeg" alt="Logo" className="h-10 w-10 rounded-full" />
-          <span className="text-xl font-bold">पीएम श्री शासकीय उच्चतर माध्यमिक विद्यालय</span>
+          <span className="text-xl font-bold">पीएम श्री शासकीय उच्चतर माध्यमिक विद्यालय, आदेगांव</span>
         </Link>
 
         {/* Hamburger Icon */}
