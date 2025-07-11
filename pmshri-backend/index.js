@@ -43,3 +43,7 @@ app.delete('/delete-image/:public_id', async (req, res) => {
   }
 });
 
+app.get("/", (req, res) => {
+  res.send("🎉 PM Shri School Backend is running successfully!");
+});
+
