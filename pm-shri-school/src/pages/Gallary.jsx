@@ -6,7 +6,7 @@ const Gallery = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const res = await fetch('http://localhost:5000/gallery');
+        const res = await fetch('https://pmshri-6.onrender.com/gallery');
         const data = await res.json();
         setImages(data || []);
       } catch (err) {

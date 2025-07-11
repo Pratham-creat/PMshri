@@ -14,8 +14,11 @@ const Upload = () => {
 
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('upload_preset', 'Pmshri'); // <-- your actual preset
-    formData.append('folder', 'pmshrigallery');
+
+    const response = await fetch('https://pmshri-6.onrender.com/upload', {
+      method: 'POST',
+      body: formData,
+    });
 
 
     setIsUploading(true);
