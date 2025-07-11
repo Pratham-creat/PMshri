@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 const Upload = () => {
   const [file, setFile] = useState(null);
@@ -14,40 +13,40 @@ const Upload = () => {
 
     const formData = new FormData();
     formData.append('file', file);
-
-    const response = await fetch('https://pmshri-6.onrender.com/upload', {
-      method: 'POST',
-      body: formData,
-    });
-
+    formData.append('upload_preset', 'Pmshri'); // must match the exact preset name
+    formData.append('folder', 'pmshrigallery');
 
     setIsUploading(true);
     try {
-      const response = await fetch(
-        'https://api.cloudinary.com/v1_1/dpe8au3fl/image/upload',
-        {
-          method: 'POST',
-          body: formData,
-        }
-      );
+      const response = await fetch('https://api.cloudinary.com/v1_1/dpe8au3fl/image/upload', {
+        method: 'POST',
+        body: formData,
+      });
 
       const data = await response.json();
-      setUploadedURL(data.secure_url);
+
+      if (data.secure_url) {
+        setUploadedURL(data.secure_url);
+      } else {
+        console.error("Cloudinary response error:", data);
+        alert('Upload failed. Please check Cloudinary configuration.');
+      }
     } catch (error) {
-      alert('Upload failed.');
-      console.error(error);
+      console.error('Upload failed:', error);
+      alert('Upload failed. See console for details.');
     }
+
     setIsUploading(false);
   };
 
   return (
     <div className="p-6 max-w-xl mx-auto text-center">
-      <h2 className="text-3xl font-bold text-blue-800 mb-4 ">Upload Gallery Image</h2>
+      <h2 className="text-3xl font-bold text-blue-800 mb-4">गैलरी इमेज अपलोड करें</h2>
       <input
         type="file"
         accept="image/*"
         onChange={(e) => setFile(e.target.files[0])}
-        className="mb-4 border-2 "
+        className="mb-4 border p-2"
       />
       <br />
       <button
@@ -60,12 +59,8 @@ const Upload = () => {
 
       {uploadedURL && (
         <div className="mt-6">
-          <p className="text-green-700 mb-2">Upload successful!</p>
-          <img
-            src={uploadedURL}
-            alt="Uploaded"
-            className="w-full max-w-md mx-auto rounded shadow"
-          />
+          <p className="text-green-700 mb-2">Upload सफल हुआ!</p>
+          <img src={uploadedURL} alt="Uploaded" className="w-full max-w-md mx-auto rounded shadow" />
         </div>
       )}
     </div>
